@@ -1,0 +1,26 @@
+/* Side effects between reviews */
+Condition has_side_effects_between_reviews:
+	'ART side effects between reviews' is Yes
+	
+/* Patient on ART */	
+Condition on_ART:
+ 	'On ART' is Yes
+ 	
+/* Patient on ART */	
+Condition is_on_firstline:
+ 	'ART regimen' is 'd4T/3TC/NVP'
+ 	
+/* Advise patient to report to a health facility */
+Action advise_to_report_to_facility:
+	'Advise patient' 'Report to health facility'
+
+/* Advise patients with side effects that occur between reviews */
+Recommendation side_effects_occuring_between_reviews:
+	Conditions has_side_effects_between_reviews, on_ART, is_on_firstline
+	Actions advise_to_report_to_facility
+		
+
+ 	 	
+ 	
+ 	
+	

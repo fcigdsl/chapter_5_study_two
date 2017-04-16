@@ -1,0 +1,15 @@
+/* Patient is eligible for ART */
+Condition eligible_for_ART:
+	'Eligible for ART' is Yes
+	
+/* Stop CD4 monitoring */
+Action stop_CD4_monitoring:
+	'Stop all' 'CD4 monitoring'
+	
+/* Stoping CD4 monitoring for all patients that are eligible for ART */
+Recommendation stopping_CD4_monitoring:
+	Conditions eligible_for_ART
+	Actions stop_CD4_monitoring
+	
+		
+	

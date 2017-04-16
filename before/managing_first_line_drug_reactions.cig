@@ -1,0 +1,50 @@
+/* Patient on ART */	
+Condition on_ART:
+ 	'On ART' is Yes
+ 	
+/* Children under 3 years */	
+Condition child_under_3_years:
+ 	'Age' < 3 years 	
+ 	
+/* Patient on first line ART */	
+Condition is_on_firstline:
+ 	'ART regimen' is 'd4T/3TC/NVP' 	
+ 	
+/* Presenting with lactic acidosis */	
+Condition has_lactic_acidosis:
+ 	'Lactic acidosis' is present 
+ 	 	
+/* Presenting with skin reaction */	
+Condition has_skin_reaction:
+ 	'Skin drug reaction' is present  
+ 	
+/* Change regimen to AZT/3TC/NVP */
+Action change_drug_to_AZT_3TC_NVP:
+	'Change regimen' 'AZT/3TC/NVP'
+	
+/* Order haemoglobin measurements */
+Action order_haemoglobin_measurements:
+	'Lab test ordered' 'Haemoglobin'
+	
+/* Stop tripple drug therapy */
+Action stop_tripple_drug_therapy:
+	'Stop all' 'd4T/3TC/NVP'
+	
+/* Seek specialist opinion */
+Action seek_specialist_opinion:
+	'Refer to' 'Tertiary clinic'
+	
+
+/* Recommendation to manage lactic acidosis */
+Recommendation manage_lactic_acidosis:
+	Conditions on_ART, is_on_firstline, has_lactic_acidosis
+	Actions change_drug_to_AZT_3TC_NVP, order_haemoglobin_measurements, stop_tripple_drug_therapy			
+	
+
+/* Recommendation to manage children under 3 years */
+Recommendation manage_children_under_3_years:
+	Conditions on_ART, is_on_firstline, has_skin_reaction, child_under_3_years
+	Actions stop_tripple_drug_therapy, seek_specialist_opinion
+
+
+						

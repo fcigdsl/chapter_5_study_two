@@ -1,0 +1,61 @@
+/* Patient on ART */	
+Condition on_ART:
+ 	'On ART' is Yes
+ 	
+/* Adhering to therapy in last 6 months */	
+Condition adhering_to_therapy_in_last_6_months:
+ 	'Adhering to therapy in last 6 months' is Yes
+ 	
+/* Not adhering to therapy in last 6 months */	
+Condition not_adhering_to_therapy_in_last_6_months:
+ 	'Adhering to therapy in last 6 months' is No
+ 	
+/* Patient presenting with suspected ART drug failure */	
+Condition with_suspected_ART_drug_failure:
+ 	'Suspected ART drug failure' is present
+	
+/* ART duration more than 12 months */	
+Condition on_ART_for_12_months_or_more:
+ 	'ART duration' >= 12 months
+ 	
+/* Patient not adhering to therapy */	
+Condition not_adhering_to_therapy:
+ 	'Adhering to therapy' is No 	
+
+/* New WHO clinical stage III/IV feature */	
+Condition new_WHO_stage_III_or_IV_condition:
+ 	'New WHO stage III/VI condition' is Yes
+ 	
+/* Flag as an ART drug failure suspect */
+Action flag_as_suspected_ART_drug_failure:
+  "Flag patient for" "Suspected ART drug failure"	 	
+ 	
+/* Refer to clinician */
+Action refer_to_clinician:
+  "Refer to" "Clinician"	 	
+ 	
+/* Order viral load */
+Action order_VL_test:
+  "Order" "Viral load test"	 	
+
+/* Enroll patient on adherence support */
+Action enroll_on_adherence_support:
+  "Enroll in program" "Adherence support"	
+   	
+/* Manage suspected ART drug failure in ART patients presenting with new stage IV condition */
+Recommendation presenting_with_new_stage_IV_condition:
+	Conditions on_ART, on_ART_for_12_months_or_more, not_adhering_to_therapy, new_WHO_stage_III_or_IV_condition
+	Actions flag_as_suspected_ART_drug_failure 
+
+ /* Manage patients presenting with suspected ART drug failure */
+Recommendation presenting_with_suspected_ART_drug_failure:
+	Conditions on_ART, with_suspected_ART_drug_failure, adhering_to_therapy_in_last_6_months
+	Actions refer_to_clinician, order_VL_test
+	
+	  
+ /* Manage patients presenting with suspected ART drug failure and not adhering to therapy*/
+Recommendation presenting_with_suspected_ART_drug_failure_and_bad_adherence:
+	Conditions on_ART, with_suspected_ART_drug_failure, not_adhering_to_therapy_in_last_6_months
+	Actions enroll_on_adherence_support
+	
+			

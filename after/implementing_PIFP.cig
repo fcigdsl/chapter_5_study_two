@@ -1,0 +1,25 @@
+/* Minimum age of children and adults */	
+Condition child_from_15_years:
+	age >= 15 years
+	
+/* Female patient */
+Condition female_patient:
+	'Gender' is Female
+	
+/* HIV positive patient */
+Condition HIV_positive_patient:
+	'HIV test result' is positive
+	
+/* Prescribe Depo-Provera injection */
+Action prescribe_depo:
+	'Prescribe' 'Depo-provera'
+	
+/* Give condoms to patient */
+Action give_condoms:
+	'Give patient' 'Condoms'
+	
+/* Implementing routine PIFP in women */
+Recommendation routine_PIFP_in_women:
+	Conditions child_from_15_years, female_patient, HIV_positive_patient
+	Actions prescribe_depo, give_condoms		
+		

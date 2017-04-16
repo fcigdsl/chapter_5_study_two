@@ -1,0 +1,12 @@
+/* Patient presenting with suspected ART drug failure */
+Condition with_suspected_ART_drug_failure:
+	'Suspected ART drug failure' is present
+
+/* Order CD4 count test */ 
+Action order_CD4_count_test:
+	Order 'CD4 count test'
+	
+/* Recommendation for patients presenting with suspected ART drug failure */
+Recommendation CD4_test_for_patients_with_suspected_ART_drug_failure:
+	Conditions with_suspected_ART_drug_failure
+	Actions order_CD4_count_test		 			

@@ -1,0 +1,53 @@
+/* Born in less than 72 hours */	
+Condition under_72_hours_old:
+	age < 72 hours
+	
+/* Patient presenting with renal failure */	
+Condition with_renal_failure:
+	'Renal failure' is present
+
+/* Initial TB treatment phase */	
+Condition is_in_initial_TB_treatment_phase:
+	'TB treatment phase' is 'Initial'
+		
+/* TB treatment phase duration for 2 weeks or less */	
+Condition on_phase_2_weeks_or_less:
+	'TB treatment phase duration' <= 2 weeks
+		
+/* Severe immuno-compromised patient */	
+Condition severe_immuno_compromised_patient:
+	'Severe immuno-compromised' is yes
+		
+/* Mother on ARVs */	
+Condition mother_on_ARVs:
+	'Is mother on ART?' is Yes
+	
+/* Prescribe standard ARV prophylaxis */
+Action prescribe_standard_ARV_prophylaxix:
+	Prescribe 'Standard ARV prophylaxis'	
+
+/* Refer to district or central hospital */
+Action refer_to_tertiary_hospital:
+  "Refer to other hospital" "Tertiary hospital"	
+
+/* Flag as eligible for ART */
+Action flag_eligible_for_ART:
+  "Flag patient for" "ART"	   							
+
+/* Managing child born to an HIV positive mother on ART */
+Recommendation born_to_HIV_positive_mother_on_ART:
+	Conditions mother_on_ARVs, under_72_hours_old 
+	Actions	prescribe_standard_ARV_prophylaxix
+	
+/* Recommendation to manage HIV+ & renal failure patients */
+Recommendation HIV_with_renal_failure:
+	Conditions HIV_positive_patient, not_on_ART, with_renal_failure
+	Actions refer_to_tertiary_hospital, flag_eligible_for_ART	
+	
+/* Severe immuno-compromised patients on TB */
+Recommendation severe_immuno_compromised_patients_on_TB:
+	Conditions HIV_positive_patient, not_on_ART, is_in_initial_TB_treatment_phase,on_phase_2_weeks_or_less, 
+		severe_immuno_compromised_patient 
+	Actions flag_eligible_for_ART
+				
+		

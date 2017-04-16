@@ -1,0 +1,49 @@
+/* Prescribed Stavudine */
+Condition prescribed_stavudine:
+	'ARVs' is 'd4T/3TC'
+
+/* Prescribed Zidovudine */
+Condition prescribed_zidovudine:
+	'ARVs' is 'Zidovudine'
+
+/* Prescribed Lopinavir/ritonavir */
+Condition prescribed_lopinavir_ritonavir:
+	'ARVs' is 'Lopinavir/ritonavir'	
+
+/* Weighs 35 kg or more */	
+Condition weighs_35_kg_or_more:
+	weight >= 35 kg	
+	
+/* Weighs 25 kg or more */	
+Condition weighs_25_kg_or_more:
+	weight >= 25 kg	
+/* Dispense 200/50mg */
+Action suggest_200_50_mg:
+	'Dosage in mg' '200/50'
+	
+/* Dispense 30/150mg */
+Action suggest_30_150_mg:
+	'Dosage in mg' '30/150'
+	
+/* Dispense 300/150mg */
+Action suggest_300_150_mg:
+	'Dosage in mg' '300/150'
+
+/* Suggest twice daily as frequency */
+Action take_twice_daily:
+	'Frequency' 'Twice a day (BD)'
+	
+/* Dosing of Lopinavir/Ritonavir */
+Recommendation when_lopinavir_ritonavir_is_prescribed:
+	Conditions prescribed_lopinavir_ritonavir, weighs_35_kg_or_more
+	Actions suggest_200_50_mg, take_twice_daily 			
+
+/* Dosing of Stavudine (d4T/3TC) */
+Recommendation when_stavudine_is_prescribed:
+	Conditions prescribed_stavudine, weighs_25_kg_or_more
+	Actions suggest_30_150_mg, take_twice_daily 	
+
+/* Dosing of Zidovudine (AZT/3TC) */
+Recommendation when_zidovudine_is_prescribed:
+	Conditions prescribed_zidovudine, weighs_25_kg_or_more
+	Actions suggest_300_150_mg, take_twice_daily 							

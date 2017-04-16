@@ -1,0 +1,140 @@
+/* Minimum age of children and adults */	
+Condition child_from_15_years:
+	age >= 15 years
+
+/* Child age lower bound (from 18 months) */	
+Condition above_child_age:
+	age >= 18 months
+
+
+/* Age of 18 months */	
+Condition child_at_18_months:
+	age = 18 months
+
+/* Age to 3 years */	
+Condition child_to_3_years:
+	age < 3 years
+
+/* Age to 15 years */	
+Condition below_adult_age:
+	age < 15 years
+
+/* Age from 5 years */	
+Condition child_from_5_years:
+	age >= 5 years
+
+/* Maximum age of a very young child under 18 months */	
+Condition child_under_18_months:
+	age < 18 months	
+
+/* Positive rapid HIV test result */
+Condition positive_rapid_HIV_test:
+	'HIV rapid test result' is positive
+
+/* Positive rapid HIV test result */
+Condition positive_HIV_test:
+	'HIV test result' is positive
+	
+/* Positive DNA-PCR test result */	
+Condition positive_DNA_PCR_test:
+	'DNA-PCR test result' is positive
+	
+/* Patient not on ART */	
+Condition not_on_ART:
+ 	'On ART' is No
+ 	
+/* With recent maternal death */	
+Condition with_recent_maternal_death:
+ 	'Recent maternal death' is Yes
+ 	
+/* Advanced to severe HIV clinical stage */	
+Condition advanced_to_severe_HIV_in_paeds:
+	'WHO clinical stage paeds' is 'WHO stage 3/4'	
+
+/* Lymphocyte count threshold for adults */	
+Condition adult_lymphocyte_count_threshold:
+	'Lymphocyte count' < 1200 'cells/mm3'		
+	
+/* CD4 count threshold for adults */	
+Condition adult_CD4_count_threshold:
+	'CD4 count' < 250 'cells/mm3'
+
+/* CD4 count threshold for older children */	
+Condition older_child_CD4_count_threshold:
+	'CD4 count' < 250 'cells/mm3'	
+
+/* CD4 count % for children */	
+Condition child_CD4_percent_threshold:
+	'CD4 %' < 20		
+
+/* CD4 count threshold for younger children */	
+Condition younger_child_CD4_count_threshold:
+	'CD4 count' < 750 'cells/mm3'		
+	
+/* Flag as eligible for ART */
+Action flag_eligible_for_ART:
+  "Flag patient for" "ART"	 	
+
+/* Continue patient on ART */
+Action continue_ART:
+  "Continue treatment" "ART"
+    
+/* Recommendation for determining ART eligibility in children and adults aged 15 and above with 
+ * mild HIV disease and low lymphocyte count
+ */
+Recommendation adult_patients_with_mild_HIV_and_low_lymphocyte_count:
+	Conditions positive_rapid_HIV_test, not_on_ART, child_from_15_years,  
+		adult_lymphocyte_count_threshold, mild_HIV
+	Actions flag_eligible_for_ART	
+	
+/* Recommendation for determining ART eligibility in children aged 18 months to 3 years with 
+ * low lymphocyte count
+ */
+Recommendation younger_children_with_low_lymphocyte_count:
+	Conditions positive_rapid_HIV_test, not_on_ART, above_child_age, child_to_3_years, 
+		younger_child_CD4_count_threshold
+	Actions flag_eligible_for_ART					  
+
+/* Recommendation for determining ART eligibility in infants under 18 months
+ * with low CD4 percentage 
+ */
+Recommendation infants_under_18_months_with_low_CD4_percent:
+	Conditions not_on_ART, positive_DNA_PCR_test, child_under_18_months, child_CD4_percent_threshold 
+	Actions flag_eligible_for_ART	
+
+/* Recommendation for determining ART eligibility in children and adults aged 15 and above with 
+ * low lymphocyte count below 250 cells/mm3
+ */
+Recommendation adult_patients_with_low_lymphocyte_count:
+	Conditions positive_rapid_HIV_test, not_on_ART, child_from_15_years,  
+		adult_CD4_count_threshold
+	Actions flag_eligible_for_ART	
+					  			
+/* Recommendation for determining ART eligibility in children and adults aged 15 years and above
+ * with advanced to severe HIV disease
+ */
+Recommendation children_with_mild_to_severe_HIV:
+	Conditions not_on_ART, positive_HIV_test, advanced_to_severe_HIV_in_paeds,
+ 		above_child_age, below_adult_age 
+	Actions flag_eligible_for_ART
+	
+/* Recommendation for determining ART eligibility in infants with PSHD - recent maternal death */
+Recommendation ART_eligibility_in_PSHD_recent_maternal_death:
+	Conditions not_on_ART, with_recent_maternal_death, 
+		positive_HIV_test, child_under_18_months
+	Actions flag_eligible_for_ART		
+
+/* Recommendation for continuing treatment for HIV positive infants at 18 months */
+Recommendation positive_test_at_18_months:
+	Conditions on_ART, positive_HIV_test, child_at_18_months
+	Actions continue_ART		
+					  								  			
+/* Recommendation for determining ART eligibility in children aged 5 to 15 years with 
+ * low lymphocyte count
+ */
+Recommendation older_children_with_low_lymphocyte_count:
+	Conditions positive_rapid_HIV_test, not_on_ART, child_from_5_years, below_adult_age, 
+		older_child_CD4_count_threshold
+	Actions flag_eligible_for_ART					  
+
+					  								  			

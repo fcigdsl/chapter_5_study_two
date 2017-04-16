@@ -1,0 +1,66 @@
+/* Prescribed Zidovudine */
+Condition prescribed_zidovudine:
+	'ARVs' is 'Zidovudine'
+
+/* Prescribed Stavudine */
+Condition prescribed_stavudine:
+	'ARVs' is 'Stavudine'
+
+/* Prescribed Lopinavir/ritonavir */
+Condition prescribed_lopinavir_ritonavir:
+	'ARVs' is 'Lopinavir/ritonavir'	
+
+/* Prescribed Emtricitabine */
+Condition prescribed_emtricitabine:
+	'ARVs' is 'Emtricitabine'
+	
+/* Age category of an adult */	
+Condition is_an_adult:
+	age >= 15 years	
+
+/* Dispense 30mg */
+Action suggest_30_mg:
+	'Dosage in mg' '30'
+
+/* Dispense 300mg */
+Action suggest_300_mg:
+	'Dosage in mg' '300'
+	
+/* Dispense 200/50mg */
+Action suggest_200_50_mg:
+	'Dosage in mg' '200/50'
+	
+/* Dispense 200mg */
+Action suggest_200_mg:
+	'Dosage in mg' '200'
+	
+/* Suggest once daily as frequency */
+Action take_once_daily:
+	'Frequency' 'Once a day (OD)'
+	
+/* Suggest twice daily as frequency */
+Action take_twice_daily:
+	'Frequency' 'Twice a day (BD)'
+	
+/* Dosing of Emtricitabine */
+Recommendation when_emtricitabine_is_prescribed:
+	Conditions prescribed_emtricitabine, is_an_adult
+	Actions suggest_200_mg, take_once_daily 			
+	
+/* Dosing of Lopinavir/Ritonavir */
+Recommendation when_lopinavir_ritonavir_is_prescribed:
+	Conditions prescribed_lopinavir_ritonavir, is_an_adult
+	Actions suggest_200_50_mg, take_twice_daily 			
+
+/* Dosing of Stavudine */
+Recommendation when_stavudine_is_prescribed:
+	Conditions prescribed_stavudine, is_an_adult
+	Actions suggest_30_mg, take_twice_daily 	
+
+/* Dosing of Zidovudine */
+Recommendation when_zidovudine_is_prescribed:
+	Conditions prescribed_zidovudine, is_an_adult
+	Actions suggest_300_mg, take_twice_daily 			
+
+	
+				

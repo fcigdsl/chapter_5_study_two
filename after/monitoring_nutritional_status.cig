@@ -1,0 +1,45 @@
+/* Patient is not pregnant */
+Condition patient_not_pregnant:
+	'Patient pregnant' is No
+	
+/* HIV positive patient */
+Condition HIV_positive_patient:
+	'HIV test result' is positive
+	
+/* Patient is not pregnant */
+Condition patient_is_pregnant:
+	'Patient pregnant' is Yes
+	
+/* Minimum age of children and adults */	
+Condition child_from_15_years:
+	age >= 15 years
+	
+/* Patient is enrolled in HCC */
+Condition patient_is_in_HCC:
+	'Enrolled in HCC' is Yes
+	
+/* BMI is under 17 */
+Condition BMI_under_17:
+	'BMI' < 17
+	
+/* MUAC is less than 22 cm */
+Condition MUAC_under_22_cm:
+	'MUAC' < 22 cm
+	
+/* Enroll patient in Therapeutic Feeding program */
+Action enroll_in_TF:
+  "Enroll in program" "Therapeutic feeding"	
+  
+/* Managing patients presenting with BMI < 17 */
+Recommendation presenting_with_BMI_under_17:
+	Conditions patient_not_pregnant, child_from_15_years, patient_is_in_HCC, BMI_under_17
+	Actions enroll_in_TF
+	
+/* Managing patients presenting with MUAC < 22 */
+Recommendation presenting_with_MUAC_under_22:
+	Conditions patient_is_pregnant, HIV_positive_patient, MUAC_under_22_cm
+	Actions enroll_in_TF
+	  
+	
+
+	

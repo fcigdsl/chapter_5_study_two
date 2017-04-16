@@ -1,0 +1,42 @@
+/* Age 6 weeks or more */	
+Condition from_6_weeks:
+	age >= 6 weeks
+	
+/* Age under 15 year */	
+Condition under_15_years:
+	age < 15 years
+	
+/* Age 15 years or more */	
+Condition from_15_years:
+	age >= 15 years
+
+/* Patient presenting with renal failure */	
+Condition with_renal_failure:
+	'Renal failure' is present
+
+/* Refer to district or central hospital */
+Action refer_to_tertiary_hospital:
+  "Refer to other hospital" "Tertiary hospital"	
+
+/* Flag as eligible for ART */
+Action flag_eligible_for_ART:
+  "Flag patient for" "ART"	   							
+
+/* Prescribe AZT/3TC/NVP */
+Action prescribe_AZT_3TC_NVP:
+  "prescribe" "AZT/3TC/NVP"	  
+
+/* Prescribe AZT/3TC+EFV */
+Action prescribe_AZT_3TC_EFV:
+  "prescribe" "AZT/3TC+EFV"	     							
+
+/* Recommendation to manage HIV+ & renal failure adultss */
+Recommendation HIV_with_renal_failure:
+	Conditions HIV_positive_patient, not_on_ART, with_renal_failure, from_15_years
+	Actions refer_to_tertiary_hospital, flag_eligible_for_ART, prescribe_AZT_3TC_EFV 	
+	
+/* Recommendation to manage HIV+ & renal failure in children */
+Recommendation HIV_with_renal_failure_in_children:
+	Conditions HIV_positive_patient, not_on_ART, with_renal_failure, from_6_weeks, under_15_years
+	Actions refer_to_tertiary_hospital, flag_eligible_for_ART, prescribe_AZT_3TC_NVP
+	

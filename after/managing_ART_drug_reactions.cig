@@ -1,0 +1,44 @@
+/* Has yellowfever/hepatitis */
+Condition has_yellow_fever:
+	'Hepatitis' is present
+
+/* Has severe stomach pain */
+Condition has_severe_stomach_pain:
+	'Severe stomach pain' is present
+
+/* Has shortness of breath */
+Condition has_shortness_of_breath:
+	'Shortness of breath' is present
+
+/* Has severe skin rash */
+Condition has_severe_skin_rash:
+	'Severe skin rash' is present
+
+/* Patient on ART */	
+Condition on_ART:
+ 	'On ART' is Yes
+ 	
+/* Stop all ARV drugs */
+Action stop_all_ARVs:
+	'Stop all' 'ARVs'
+	
+/* Managing ART patients that present with yellow fever */
+Recommendation presenting_with_yellow_fever:
+	Conditions has_yellow_fever, on_ART
+	Actions stop_all_ARVs
+
+/* Managing ART patients that present with severe stomach pain */
+Recommendation presenting_with_severe_stomach_pain:
+	Conditions has_severe_stomach_pain, on_ART
+	Actions stop_all_ARVs
+
+/* Managing ART patients that present with shortness of breath */
+Recommendation presenting_with_shortness_of_breath:
+	Conditions has_shortness_of_breath, on_ART
+	Actions stop_all_ARVs
+
+/* Managing ART patients that present with severe skin rash */
+Recommendation presenting_with_severe_skin_rash:
+	Conditions has_severe_skin_rash, on_ART
+	Actions stop_all_ARVs
+	  		

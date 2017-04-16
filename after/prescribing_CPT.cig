@@ -1,0 +1,41 @@
+/* Weighs 6kg or more */
+Condition weighs_6_kg_or_more:
+	weight >= 6 kg
+	
+/* Weighs 13.9kg or less */
+Condition weighs_13_9_kg_or_less:
+	weight <= 13.9 kg
+
+/* Weighs 14kg or more */
+Condition weighs_14_kg_or_more:
+	weight >= 14 kg
+	
+/* Weighs 29.9kg or less */
+Condition weighs_29_9_kg_or_less:
+	weight <= 29.9 kg
+		
+/* Patient is eligible for CPT */	
+Condition eligible_for_CPT:
+	'Eligible for CPT' is Yes
+	
+/* Dispense 120mg (Quarter of a tablet) */
+Action suggest_120_mg:
+	'Dosage in mg' '120'
+	
+/* Dispense 480mg (1 tablet) */
+Action suggest_480_mg:
+	'Dosage in mg' '480'
+	
+/* CPT dosing for younger children */
+Recommendation dosing_for_younger_children:
+	Conditions eligible_for_CPT, weighs_6_kg_or_more, weighs_13_9_kg_or_less
+	Actions suggest_120_mg
+	
+/* CPT dosing for older children */
+Recommendation dosing_for_older_children:
+	Conditions eligible_for_CPT, weighs_14_kg_or_more, weighs_29_9_kg_or_less
+	Actions suggest_480_mg
+		
+		
+	
+	

@@ -1,0 +1,42 @@
+/* Miximum age of children */	
+Condition up_to_maximum_child_age:
+	age < 15 years
+	
+/* Patient is on ART */
+Condition on_ART:
+	'On ART' is Yes
+	
+/* Patient is pregnant */
+Condition pregnant_patient:
+	'Patient pregnant' is Yes
+	
+/* On firstline Paeds */
+Condition is_on_firstline_regimen_paeds:
+	'ARVs' is 'Regimen 0P'
+
+/* ARV drug is an EFV based regimen */
+Condition is_on_an_EFV_based_regimen:
+	'ARVs' is 'EFV-based regimen'
+		
+/* Over 25 Kgs */
+Condition over_25_kgs:
+	Weight > 25 kg
+	
+/* Prescribing regimen 0A */
+Action prescribe_0A:
+	'Prescribe drugs' 'Regimen 0A'
+
+/* Do not change ARV regimen */
+Action do_not_change_EFV_based_ARVs:
+	'Continue' 'EFV-based regimen'
+		
+/* Switching to adult firstline when weght goes beyond 25kg */
+Recommendation switching_to_adult_firstline_when_over_25_kg:
+	Conditions up_to_maximum_child_age, on_ART, is_on_firstline_regimen_paeds, over_25_kgs
+	Actions prescribe_0A
+
+/* Women on an EFV-based regimen presenting with pregnancy */
+Recommendation pregnant_women_on_EFV:
+	Conditions pregnant_patient, is_on_an_EFV_based_regimen, on_ART
+	Actions do_not_change_EFV_based_ARVs	
+		

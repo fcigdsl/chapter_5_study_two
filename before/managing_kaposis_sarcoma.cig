@@ -1,0 +1,34 @@
+/*  Mild to moderate KS disease stage */
+Condition has_mild_to_moderate_KS:
+	'KS disease stage' is 'Mild to moderate'
+	
+/*  Severe KS disease stage */
+Condition has_severe_KS:
+	'KS disease stage' is 'Severe'
+	
+/* HIV positive patient */
+Condition HIV_positive_patient:
+	'HIV test result' is positive
+
+/* Patient not on ART */	
+Condition not_on_ART:
+ 	'On ART' is No	
+	
+/* Flag as eligible for ART */
+Action flag_eligible_for_ART:
+  "Flag patient for" "ART"	 	
+	
+/* Prescribe Vincristine */
+Action prescribe_vincristine:
+	'Prescribe drugs' 'Vincristine'	
+	
+/* Enroll patient with mild to moderate KS in ART  */
+Recommendation manage_mild_to_moderate_KS:
+	Conditions has_mild_to_moderate_KS, HIV_positive_patient, not_on_ART
+	Actions flag_eligible_for_ART		
+	
+	
+/* Managing HIV positive patients with severe KS */
+Recommendation manage_severe_KS:
+	Conditions has_severe_KS, not_on_ART, HIV_positive_patient
+	Actions prescribe_vincristine, flag_eligible_for_ART		

@@ -1,0 +1,53 @@
+/* Positive rapid HIV test result */
+Condition positive_rapid_HIV_test:
+	'HIV rapid test result' is positive
+		
+/* WHO stage II(Mild) HIV clinical stage */	
+Condition mild_HIV:
+	'WHO clinical stage' is 'WHO stage 2'
+
+/* Patient presenting with suspected ART drug failure */
+Condition with_suspected_ART_drug_failure:
+	'Suspected ART drug failure' is present
+
+/* Baseline CD4 count is not available  */
+Condition without_baseline_CD4_count_result:
+	'Baseline CD4 count available' is No
+		
+/* Patient not on ART */	
+Condition not_on_ART:
+ 	'On ART' is No
+
+/* CD4 count result */	
+Condition CD4_count_500_or_more:
+ 	'CD4 count' >= 500 'cells/mm3'
+ 	
+/* CD4 count result aged 12 months or more   */	
+Condition CD4_age_12_months_or_more:
+ 	'CD4 age' >= 12 months
+
+/* Order CD4 count test */ 
+Action order_CD4_count_test:
+	Order 'CD4 count test'
+	
+/* Recommendation for mild HIV*/
+Recommendation CD4_test_for_WHO_stage_II:
+	Conditions not_on_ART, positive_rapid_HIV_test, mild_HIV
+	Actions order_CD4_count_test
+	
+/* Recommendation for patients presenting with suspected ART drug failure */
+Recommendation CD4_test_for_patients_with_suspected_ART_drug_failure:
+	Conditions with_suspected_ART_drug_failure
+	Actions order_CD4_count_test		 			
+		
+/* Recommendation for patients without baseline CD4 test */
+Recommendation CD4_test_for_patients_without_baseline_CD4_test:
+	Conditions without_baseline_CD4_count_result
+	Actions order_CD4_count_test	
+	
+/* Recommendation for 12 months follow up */
+Recommendation CD4_test_12_months_followup:
+	Conditions not_on_ART, positive_rapid_HIV_test, CD4_count_500_or_more, CD4_age_12_months_or_more
+	Actions order_CD4_count_test		
+		 			
+		

@@ -1,0 +1,55 @@
+/* Aged from 5 years */	
+Condition aged_5_years_or_more:
+	age >= 5 years	
+
+/* Age from 6 weeks */	
+Condition aged_6_weeks_or_more:
+	age >= 6 weeks	
+
+/* Age under 5 months */	
+Condition aged_less_than_5_months:
+	age < 5 months	
+
+/* Patient is eligible for CPT */	
+Condition eligible_for_CPT:
+	'Eligible for CPT' is Yes
+	
+/* Age category of a child */	
+Condition is_a_child:
+	age < 15 years
+		
+/* Patient is eligible for ART */	
+Condition is_eligible_for_ART:
+ 	'Eligible for ART' is Yes	
+
+/* Prescribe CPT */
+Action prescribe_CPT:
+	'Prescribe' 'CPT'	
+
+/* Dispense 120mg (Quarter of a tablet) */
+Action suggest_120_mg:
+	'Dosage in mg' '120'
+	
+/* Dispense 480mg (1 tablet) */
+Action suggest_480_mg:
+	'Dosage in mg' '480'
+	
+/* CPT dosing for younger children */
+Recommendation dosing_for_younger_children:
+	Conditions eligible_for_CPT, aged_6_weeks_or_more, aged_less_than_5_months
+	Actions suggest_120_mg
+	
+/* CPT dosing for older children */
+Recommendation dosing_for_older_children:
+	Conditions eligible_for_CPT, aged_5_years_or_more, is_a_child
+	Actions suggest_480_mg
+	
+/* CPT for patients with low CD4 count */
+Recommendation all_persons_eligible_for_ART:
+	Conditions is_eligible_for_ART
+	Actions prescribe_CPT
+	
+	
+		
+	
+	

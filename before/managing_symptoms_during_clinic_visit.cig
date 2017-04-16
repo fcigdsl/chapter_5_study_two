@@ -1,0 +1,18 @@
+/* HIV positive patient */
+Condition HIV_positive_patient:
+	'HIV test result' is positive
+	
+/* Has new symptoms since last visit */
+Condition has_new_symptoms_since_last_visit:
+	'New symptoms since last visit' is Yes
+
+/* Refer patient to clinician */
+Action refer_to_clinician:
+	'Refer to' 'Clinician'
+	
+/* Managing new symptoms */
+Recommendation managing_new_symptoms:
+	Conditions HIV_positive_patient, has_new_symptoms_since_last_visit
+	Actions refer_to_clinician
+	
+	

@@ -1,0 +1,18 @@
+/* Negative HIV test result */
+Condition HIV_negative_patient:
+	'HIV test result' is negative
+	
+/* Tested more than 3 months ago */
+Condition tested_over_3_months_ago:
+	'HIV test result duration' > 3 months
+	
+/* Order HIV test */
+Action order_HIV_test:
+	'Order' 'HIV test'
+	
+/* Implementing PITS in patients tested more than 3 months ago */
+Recommendation patients_tested_over_3_months_ago:
+	Conditions HIV_negative_patient, tested_over_3_months_ago
+	Actions order_HIV_test		
+	
+	
